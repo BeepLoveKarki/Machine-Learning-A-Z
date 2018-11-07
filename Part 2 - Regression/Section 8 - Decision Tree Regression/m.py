@@ -1,4 +1,4 @@
-#polynomial regression
+#Decision tree regression
 
 # Importing the libraries
 import numpy as np
@@ -23,18 +23,20 @@ sc_Y = StandardScaler()
 Y_train = sc_Y.fit_transform(Y_train)"""
 
 
-#Fitting regression model to dataset
-#Create regressor here
+#Fitting decision tree regression model to dataset
+from sklearn.tree import DecisionTreeRegressor
+regressor=DecisionTreeRegressor(random_state=0)
+regressor.fit(X,Y) 
 
-#Predict with polynomial regression
-regressor.predict(6.5)
+#Predict with decision tree regression
+y_pred=regressor.predict(6.5)
 
-#Visualizing regression results
-X_grid=np.arange(min(X),max(X),0.1)
+#Visualizing decision tree regression results
+X_grid=np.arange(min(X),max(X),0.01)
 X_grid=X_grid.reshape((len(X_grid),1))
 plt.scatter(X,Y,color='red')
 plt.plot(X_grid,regressor.predict(X_grid),color='blue')
-plt.title('Truth or bluff (regression model)')
+plt.title('Truth or bluff (Decision Tree Regression model)')
 plt.xlabel('Position level')
 plt.ylabel('Salary')
 plt.show()

@@ -1,4 +1,4 @@
-#Regression template
+#Decision Tree Regression
 
 #read data
 dataset = read.csv('Position_Salaries.csv')
@@ -16,33 +16,23 @@ dataset=dataset[,2:3]
 #training_set[,2:3]=scale(training_set[,2:3])
 #test_set[,2:3]=scale(test_set[,2:3])
 
-#Fitting regression model to dataset
-#create regressor
+#Fitting decision tree regression model to dataset
+library(rpart)
+regressor=rpart(formula=Salary~.,data=dataset,control=rpart.control(minsplit=1))
 
-#predict data using regression
-y_pred=predict(regressor,data.frame(Level=6.5))
+#predict data using decision tree regression
+y_pred=predict(regessor,data.frame(Level=6.5))
 
 
-#visualize regression model
-library(ggplot2)
-ggplot()+
-  geom_point(aes(x=dataset$Level,y=dataset$Salary),
-             colour='red')+
-  geom_line(aes(x=dataset$Level,y=predict(regressor,newdata=dataset)),
-            colour='blue')+
-  ggtitle('True vs bluff (Regression model)')+
-  xlab('Level')+
-  ylab('Salary')
-
-#visualize polynomial regression model more smooth
+#visualize decision tre regression model more smooth
 library(ggplot2)
 X_grid=seq(min(dataset$Level),max(dataset$Level),0.1)
 ggplot()+
   geom_point(aes(x=dataset$Level,y=dataset$Salary),
              colour='red')+
-  geom_line(aes(x=X_grid,y=predict(regressor,newdata=data.frame(Level=X_grid))),
+  geom_line(aes(x=x_grid,y=predict(regessor,newdata=data.frame(Level=X_grid))),
             colour='blue')+
-  ggtitle('True vs bluff (Regression model)')+
+  ggtitle('True vs bluff (Decision Tree Regression model)')+
   xlab('Level')+
   ylab('Salary')
 
